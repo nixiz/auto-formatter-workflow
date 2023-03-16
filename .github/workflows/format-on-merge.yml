@@ -1,0 +1,38 @@
+name: Run Python Script and Format Code on Pull Request Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - 'feature-*'
+      - master
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run Python script
+        run: python script.py
+      - name: Format code with clang-format
+        uses: jidicula/clang-format-action@v4.10.2
+        with:
+          clang-format-version: '13'
+          check-path: 'src'
+          fallback-style: 'Google'
+      - name: Commit changes
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git commit -a -m "Format code with clang-format"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
