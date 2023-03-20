@@ -26,10 +26,10 @@ jobs:
       - name: Get list of files
         id: get_files
         run: |
-          echo ${GITHUB_REF}
-          echo ${GITHUB_SHA}
-          echo ${GITHUB_BASE_REF}
-          echo ${GITHUB_HEAD_REF}
+          target_sha=$(git rev-parse ${GITHUB_BASE_REF})
+          merging_sha=$(git rev-parse ${GITHUB_HEAD_REF})
+          echo $target_sha
+          echo $merging_sha
           echo $(git diff --name-only HEAD^ HEAD)
           echo ::set-output name=files::$(git diff --name-only HEAD^ HEAD)
       - name: Run Python script
