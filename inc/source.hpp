@@ -4,6 +4,8 @@
 
 
 
+
+
 class MyClass {
 public:
     MyClass(int val_);
