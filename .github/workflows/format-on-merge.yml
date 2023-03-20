@@ -23,10 +23,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: List files
+        id: list_files
         run: |
-        git fetch origin ${GITHUB_REF}
-        git checkout ${GITHUB_SHA}
-        echo ::set-output name=files::$(git diff --name-only ${GITHUB_BASE_REF} ${GITHUB_HEAD_REF})
+          git fetch origin ${GITHUB_REF}
+          git checkout ${GITHUB_SHA}
+          echo ::set-output name=files::$(git diff --name-only ${GITHUB_BASE_REF} ${GITHUB_HEAD_REF})
       - name: Run Python script
         run: python script.py ${{ steps.list_files.outputs.files }}
       # - name: Commit changes
