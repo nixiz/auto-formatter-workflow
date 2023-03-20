@@ -11,3 +11,7 @@ MyClass::MyClass(int val_)
 int MyClass::GetRandVal() const {
     return val + rand();
 }
+
+    void MyClass::SetNewValue(int i) {
+        
+    }
