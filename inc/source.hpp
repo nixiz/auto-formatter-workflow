@@ -3,9 +3,6 @@
 #define _SOURCE_HPP_
 
 
-
-
-
 class MyClass {
 public:
     MyClass(int val_);
