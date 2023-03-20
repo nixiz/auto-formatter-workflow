@@ -29,6 +29,8 @@ jobs:
           git checkout ${GITHUB_BASE_REF}
           head=$(git rev-parse ${GITHUB_HEAD_REF})
           base=$(git merge-base $head ${GITHUB_BASE_REF})
+          echo ${GITHUB_REF}
+          echo ${GITHUB_BASE_REF}
           echo $head
           echo $base
           echo "::set-output name=files::$(git diff --name-only $base $head)"      
