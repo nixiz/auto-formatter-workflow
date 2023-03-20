@@ -25,6 +25,8 @@ jobs:
       - name: List files
         id: list_files
         run: |
+          echo ${GITHUB_HEAD_REF}
+          echo ${GITHUB_BASE_REF}
           git fetch origin ${GITHUB_REF}
           git checkout ${GITHUB_BASE_REF}
           head=$(git rev-parse ${GITHUB_HEAD_REF})
