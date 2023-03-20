@@ -26,8 +26,10 @@ jobs:
       - name: Get list of files
         id: get_files
         run: |
-          target_sha=$(git rev-parse origin/${GITHUB_REF})
+          git fetch origin ${GITHUB_REF}
+          git checkout ${GITHUB_BASE_REF}
           merging_sha=$(git rev-parse ${GITHUB_HEAD_REF})
+          target_sha=$(git merge-base $head ${GITHUB_BASE_REF})
           echo $target_sha
           echo $merging_sha
           echo $(git diff --name-only HEAD^ HEAD)
