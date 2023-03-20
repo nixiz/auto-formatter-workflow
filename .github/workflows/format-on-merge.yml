@@ -26,10 +26,11 @@ jobs:
         id: list_files
         run: |
           git fetch origin ${GITHUB_REF}
-          git checkout ${GITHUB_HEAD_REF}
-          base=$(git merge-base ${GITHUB_BASE_REF} ${GITHUB_HEAD_REF})
-          git diff --name-only $base ${GITHUB_HEAD_REF} > files.txt
-          echo "::set-output name=files::$(cat files.txt)"
+          git checkout ${GITHUB_BASE_REF}
+          head=$(git rev-parse ${GITHUB_HEAD_REF})
+          base=$(git merge-base $head ${GITHUB_BASE_REF})
+          git diff --name-only $base $head > files.txt
+          echo "::set-output name=files::$(cat files.txt)"      
       - name: Run Python script
         run: python ./scripts/script.py ${{ steps.list_files.outputs.files }}
       # - name: Commit changes
