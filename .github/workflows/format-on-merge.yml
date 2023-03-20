@@ -22,17 +22,16 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run Python script
-        run: python script.py
-      - name: Format code with clang-format
-        uses: jidicula/clang-format-action@v4.10.2
-        with:
-          clang-format-version: '13'
-          check-path: 'src'
-          fallback-style: 'Google'
-      - name: Commit changes
+      - name: List files
         run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git commit -a -m "Format code with clang-format"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+        git fetch origin ${GITHUB_REF}
+        git checkout ${GITHUB_SHA}
+        echo ::set-output name=files::$(git diff --name-only ${GITHUB_BASE_REF} ${GITHUB_HEAD_REF})
+      - name: Run Python script
+        run: python script.py ${{ steps.list_files.outputs.files }}
+      # - name: Commit changes
+      #   run: |
+      #     git config --global user.email "github-actions@github.com"
+      #     git config --global user.name "GitHub Actions"
+      #     git commit -a -m "Format code with clang-format"
+      #     git push origin HEAD:${{ github.event.pull_request.head.ref }}
