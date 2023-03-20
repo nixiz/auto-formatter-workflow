@@ -10,7 +10,7 @@ public:
     ~MyClass() = default;
 
     int GetRandVal() const;
-
+    void SetNewValue(int i);
     private:
     int val;
 };
