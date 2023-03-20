@@ -25,10 +25,13 @@ jobs:
       - name: List files
         id: list_files
         run: |
-          echo ${GITHUB_HEAD_REF}
-          echo ${GITHUB_BASE_REF}
-          echo $(git diff --name-only ${GITHUB_BASE_REF})
-          echo "::set-output name=files::$(git diff --name-only ${GITHUB_BASE_REF})"      
+          merging-branch=${GITHUB_HEAD_REF}
+          git fetch origin ${GITHUB_BASE_REF}
+          #git checkout ${GITHUB_BASE_REF}
+          head=$(git rev-parse ${GITHUB_BASE_REF})
+          echo $head
+          echo $(git diff --name-only $head)
+          echo "::set-output name=files::$(git diff --name-only $head)"
       - name: Run Python script
         run: python ./scripts/script.py ${{ steps.list_files.outputs.files }}
       # - name: Commit changes
