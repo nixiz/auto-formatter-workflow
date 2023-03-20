@@ -13,9 +13,6 @@ int MyClass::GetRandVal() const {
 }
 
 
-
-
-
 void MyClass::SetNewValue(int i) {
 
     std::cout << "MyClass::SetNewValue(i: "<< i << ");\n";    
