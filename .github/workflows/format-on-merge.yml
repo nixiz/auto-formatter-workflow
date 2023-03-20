@@ -34,11 +34,9 @@ jobs:
         id: get_files_2
         run: | 
           git fetch origin ${GITHUB_REF}
-          git checkout ${GITHUB_BASE_REF}
-          head=$(git rev-parse ${GITHUB_HEAD_REF})
-          base=$(git merge-base $head ${GITHUB_BASE_REF})
+          git checkout ${GITHUB_SHA}
+          head=$(git rev-parse ${GITHUB_BASE_REF})
           echo $head
-          echo $base
           echo $(git diff-tree --no-commit-id --name-only $head -r)
           echo ::set-output name=files::$(git diff-tree --no-commit-id --name-only $head -r)
      
