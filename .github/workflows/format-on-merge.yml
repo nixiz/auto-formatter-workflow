@@ -33,7 +33,7 @@ jobs:
       - name: Get list of files from the merge commit
         id: get_files_2
         run: | 
-          head=$(git rev-parse ${GITHUB_HEAD_REF})
+          head=$(git rev-parse ${GITHUB_SHA})
           echo $head
           echo $(git diff-tree --no-commit-id --name-only $head -r)
           echo ::set-output name=files::$(git diff-tree --no-commit-id --name-only $head -r)
