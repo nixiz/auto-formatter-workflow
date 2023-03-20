@@ -22,10 +22,12 @@ jobs:
           python-version: '3.x'
       #- name: Install dependencies
       #  run: pip install -r requirements.txt
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
       - name: List files
         id: list_files
         run: |
-          merging-branch=${GITHUB_HEAD_REF}
           git fetch origin ${GITHUB_BASE_REF}
           #git checkout ${GITHUB_BASE_REF}
           head=$(git rev-parse ${GITHUB_BASE_REF})
@@ -34,6 +36,8 @@ jobs:
           echo "::set-output name=files::$(git diff --name-only $head)"
       - name: Run Python script
         run: python ./scripts/script.py ${{ steps.list_files.outputs.files }}
+      - name: Run Python script - 2
+        run: python ./scripts/script.py ${{ steps.changed-files.outputs.all_changed_files }}
       # - name: Commit changes
       #   run: |
       #     git config --global user.email "github-actions@github.com"
