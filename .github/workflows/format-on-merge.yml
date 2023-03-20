@@ -3,9 +3,9 @@ name: Run Python Script and Format Code on Pull Request Merge
 on:
   pull_request:
     types: [closed]
-    branches:
-      - 'feature-*'
-      - master
+     #branches:
+      # - 'feature-*'
+       #- master
 
 jobs:
   run_script:
