@@ -19,14 +19,4 @@ public:
 
 
 
-
-
-
-
-
-
-
-
-
-
 #endif // _SOURCE_HPP_
