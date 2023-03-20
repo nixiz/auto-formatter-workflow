@@ -26,8 +26,8 @@ jobs:
       - name: Get list of files
         id: get_files
         run: |
-          git diff --name-only HEAD^ HEAD > files_changed.txt
-          echo "::set-output name=files::$(cat files_changed.txt)"
+          echo $(git diff --name-only HEAD^ HEAD)
+          echo ::set-output name=files::$(git diff --name-only HEAD^ HEAD)
       - name: Print output
         run: |
           echo "List of files changed:"
