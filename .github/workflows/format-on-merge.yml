@@ -26,7 +26,7 @@ jobs:
       - name: Get list of files
         id: get_files
         run: |
-          target_sha=$(git rev-parse ${GITHUB_BASE_REF})
+          target_sha=$(git rev-parse origin/${GITHUB_BASE_REF})
           merging_sha=$(git rev-parse ${GITHUB_HEAD_REF})
           echo $target_sha
           echo $merging_sha
