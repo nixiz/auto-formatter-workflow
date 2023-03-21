@@ -42,12 +42,12 @@ jobs:
         run: |
           git config --global user.email ""
           git config --global user.name "GitHub Auto Formatter Action Bot"
+      - name: Merge pull request
+        run: git merge --no-commit ${{ github.event.pull_request.head.ref }}
       - name: Commit changes
         run: |
-          git fetch origin ${GITHUB_REF}
-          git checkout ${GITHUB_BASE_REF}
           git commit -a -m "Format code with clang-format"
-          # git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          git push
 
       # - name: Get last commit from merged branch
       #   id: get_last_commit
