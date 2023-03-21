@@ -14,7 +14,4 @@ public:
     int val;
 };
 
-
-
-
 #endif // _SOURCE_HPP_
