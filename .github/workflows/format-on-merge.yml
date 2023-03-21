@@ -31,9 +31,14 @@ jobs:
           echo $(git diff --name-only HEAD^ HEAD)
           echo ::set-output name=files::$(git diff --name-only HEAD^ HEAD)
       - name: Run Python script
-        run: python ./scripts/script.py ${{ steps.get_files.outputs.files }}
+        run: | 
+          git fetch origin ${GITHUB_REF}
+          git checkout ${GITHUB_BASE_REF}
+          python ./scripts/script.py ${{ steps.get_files.outputs.files }}
       - name: Put timestamp of the running action
         run: |
+          git fetch origin ${GITHUB_REF}
+          git checkout ${GITHUB_BASE_REF}
           echo "// Action Bot runned on $(date +%Y-%m-%d\ %H:%M:%S)" >> donotchange.txt
           cat donotchange.txt
         shell: bash
