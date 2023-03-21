@@ -20,6 +20,7 @@ def write_comment_with_timestamp(file_path):
         f.write(timestamp_str)
 
 
+
 # Get arguments from command line
 file_list = sys.argv[1:]
 
