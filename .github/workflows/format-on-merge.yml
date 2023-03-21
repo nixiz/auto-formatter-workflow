@@ -42,8 +42,28 @@ jobs:
         run: |
           git config --global user.email ""
           git config --global user.name "GitHub Auto Formatter Action Bot"
+      - name: Merge pull request
+        run: git merge --no-commit ${{ github.event.pull_request.head.ref }}
       - name: Commit changes
         run: |
-          git checkout ${GITHUB_BASE_REF}
           git commit -a -m "Format code with clang-format"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          git push
+
+      # - name: Get last commit from merged branch
+      #   id: get_last_commit
+      #   run: |
+      #     git fetch origin main
+      #     last_commit=$(git log -1 --pretty=format:%H origin/main)
+      #     echo "::set-output name=last_commit::$last_commit"
+
+      # - name: Make commit on top of merged pull request
+      #   run: |
+      #     last_commit=${{ steps.get_last_commit.outputs.last_commit }}
+      #     git checkout -b feature-branch
+      #     # Make your changes to the code
+      #     git add .
+      #     git commit -m "Added new feature"
+      #     git checkout main
+      #     git merge feature-branch -m "Merge pull request"
+      #     git cherry-pick $last_commit..HEAD
+      #     git push origin main
