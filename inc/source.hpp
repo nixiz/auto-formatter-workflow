@@ -14,13 +14,5 @@ public:
     int val;
 };
 
-
-
 #endif // _SOURCE_HPP_
-// Comment added on 2023-03-21 11:54:04
 
-// Comment added on 2023-03-21 11:56:51
-
-// Comment added on 2023-03-21 11:59:05
-
-// Comment added on 2023-03-21 12:13:34
